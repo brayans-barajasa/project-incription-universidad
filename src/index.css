@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Colores */
+  --background-color: #f0f0f0;
+  --background-color2: #ffffff;
+  --primary-color: #0b377a;
+  --primary-color2: #1f3557;
+  --secondary-color: #d1930e;
+  --secondary-color2: #f6a800;
+  --light-sidebar: #f9fafb;
+  --text-color: #ffffff;
+  --text-color2: #1b1b1b;
+  --light-blue: #abbde1;
+  --light-blue-mouse: #d1dbe9;
+  --table-hover-color: #eaf2fb;
+
+  --color-hover: #808080;
+  --danger-color: #ff1900;
+  --success-color: #008f39;
+  --warning-color: #f39c12;
+
+  /* Tamaños de fuente */
+  /* Como no tenemos la variable --font-size-scale aquí, asignamos 1 como base */
+  --font-size-scale: 1;
+
+  --font-size-heading-xxl: calc(
+    clamp(1.7rem, 2.3vw, 1.9rem) * var(--font-size-scale)
+  );
+  --font-size-heading-xl: calc(
+    clamp(1.5rem, 2vw, 1.7rem) * var(--font-size-scale)
+  );
+  --font-size-heading-lg: calc(
+    clamp(1.3rem, 1.8vw, 1.5rem) * var(--font-size-scale)
+  );
+  --font-size-heading-md: calc(
+    clamp(1.1rem, 1.6vw, 1.3rem) * var(--font-size-scale)
+  );
+  --font-size-text-lg: calc(clamp(1rem, 2vw, 1.1rem) * var(--font-size-scale));
+  --font-size-text-md: calc(
+    clamp(0.875rem, 1.75vw, 1rem) * var(--font-size-scale)
+  );
+  --font-size-text-sm: calc(
+    clamp(0.75rem, 1.5vw, 0.875rem) * var(--font-size-scale)
+  );
+  --font-size-text-xs: calc(
+    clamp(0.625rem, 1.25vw, 0.75rem) * var(--font-size-scale)
+  );
+  --font-size-text-xxs: calc(
+    clamp(0.5rem, 1vw, 0.625rem) * var(--font-size-scale)
+  );
+
+  /* Espaciados y márgenes */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Bordes y sombras */
+  --line-yellow: 5px solid var(--secondary-color);
+  --line-primary-blue: 5px solid var(--primary-color2);
+  --border-radius-sm: 6px;
+  --border-radius-md: 10px;
+  --border-radius: var(--border-radius-md);
+  --border-radius-top: 10px 10px 0 0; /* Bordes redondeados arriba */
+  --border-radius-bottom: 0 0 10px 10px; /* Bordes redondeados abajo */
+
+  /* Z-Index */
+  --z-index-tooltip: 1000;
+  --z-index-navbar: 1100;
+  --z-index-overlay: 1200;
+
+  /* Breakpoints */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1440px;
+
+  /* Transiciones */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+
+  --line-blue2: 5px solid var(--light-blue);
+
+  --input-border-color: #ccc;
+  --border-light: #f0f0f0;
+  --background-dark: #1e1e1e;
+  --background-light-gray: #f0f0f0;
+
+  --border-thin: 2px solid var(--input-border-color);
+  --border-thick: 2px solid var(--primary-color);
+  --border-radius-lg: 16px;
+  --shadow-light: 0 2px 6px rgba(0, 0, 0, 0.15);
+  --shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.2);
+  --shadow-heavy: 0 6px 16px rgba(0, 0, 0, 0.25);
+
+  --appbar-height: clamp(60px, 8vh, 80px);
+  --appbar-height-double: clamp(120px, 16vh, 160px);
+  --appbar-height-mobile: clamp(45px, 5vh, 65px);
+  --appbar-height-mobile-double: clamp(90px, 10vh, 130px);
+}

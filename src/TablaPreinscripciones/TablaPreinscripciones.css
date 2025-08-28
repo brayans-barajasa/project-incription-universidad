@@ -1,0 +1,58 @@
+.table-container .ag-row,
+.table-container .ag-root-wrapper {
+  border: none !important;
+}
+
+/* Encabezado */
+.table-container .ag-header-cell-label {
+  justify-content: center;
+}
+
+.table-container .ag-header {
+  background-color: var(--light-blue);
+  color: var(--primary-color);
+  font-weight: 650;
+  text-transform: uppercase;
+  border-bottom: var(--line-primary-blue);
+}
+
+.table-container .ag-row-even {
+  background-color: var(--table-hover-color);
+}
+
+/* Hover en fila */
+.table-container .ag-row-hover {
+  background-color: var(--light-blue-mouse);
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.table-container .table-foot {
+  box-shadow: var(--shadow-heavy);
+}
+
+.table-container .table-foot .ag-cell {
+  border-top: 2px solid var(--primary-color2);
+  font-weight: 550;
+  color: var(--primary-color);
+  background-color: var(--light-blue);
+}
+
+.table-container .ag-cell,
+.table-container .ag-header-cell-label,
+.table-container .ag-header-cell {
+  padding: 0;
+}
+
+.table-container .avatar-info {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.table-container .avatar-info .avatar {
+  width: auto;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 20%;
+}
