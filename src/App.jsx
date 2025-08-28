@@ -1,36 +1,44 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import PreinscripcionForm from "./PreinscripcionForm/PreinscripcionForm";
 import TablaPreinscripciones from "./TablaPreinscripciones/TablaPreinscripciones";
+import "./app.css";
 
 function App() {
   return (
     <Router>
-      <nav style={styles.nav}>
-        <Link style={styles.link} to="/">Inicio</Link>
-        <Link style={styles.link} to="/preinscripcion">Formulario</Link>
-        <Link style={styles.link} to="/listado">Listado</Link>
-      </nav>
+      <header className="header">
+        <div className="header-content">
+          <h1 className="title">Universidad Nacional</h1>
+          <p className="subtitle">
+            Bienvenido a la plataforma de preinscripción universitaria. Aquí puedes inscribirte y consultar los datos de preinscripciones.
+          </p>
+          <nav className="nav">
+            <Link className="btn" to="/preinscripcion">
+              Completar Formulario
+            </Link>
+            <Link className="btn btn-secondary" to="/listado">
+              Ver Listado de Preinscripciones
+            </Link>
+          </nav>
+        </div>
+      </header>
 
-      <Routes>
-        <Route path="/preinscripcion" element={<PreinscripcionForm />} />
-        <Route path="/listado" element={<TablaPreinscripciones />} />
-      </Routes>
+      <main className="main-content">
+        <Routes>
+          <Route path="/preinscripcion" element={<PreinscripcionForm />} />
+          <Route path="/listado" element={<TablaPreinscripciones />} />
+          <Route
+            path="*"
+            element={
+              <div className="home-placeholder">
+                <p>Selecciona una opción del menú para comenzar.</p>
+              </div>
+            }
+          />
+        </Routes>
+      </main>
     </Router>
   );
 }
-
-const styles = {
-  nav: {
-    display: "flex",
-    gap: "20px",
-    padding: "15px",
-    backgroundColor: "#f0f0f0",
-  },
-  link: {
-    textDecoration: "none",
-    color: "#333",
-    fontWeight: "bold",
-  },
-};
 
 export default App;
