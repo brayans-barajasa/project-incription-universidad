@@ -4,6 +4,8 @@ import TablaPreinscripciones from "./TablaPreinscripciones/TablaPreinscripciones
 import Home from "./Home/Home";
 import "./app.css";
 import Navbar from "./AppBar/AppBar";
+import Login from "./login/Login";
+import Dashboard from "./Dashboard/Dashboard";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/preinscripcion" element={<PreinscripcionForm />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/listado" element={<TablaPreinscripciones />} />
         </Routes>
       </div>
