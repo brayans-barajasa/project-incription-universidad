@@ -1,27 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../db/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
-import { AgGridReact } from "ag-grid-react";
-import "./TablaPreinscripciones.css";
+import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+import { Box, Typography, Chip, IconButton, Tooltip } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const TablaPreinscripciones = () => {
-  const [rowData, setRowData] = useState([]);
-
-  const [columnDefs] = useState([
-    { field: "nombres", filter: true },
-    { field: "apellidos", filter: true },
-    { field: "email", filter: true },
-    { field: "telefono", filter: true },
-    { field: "ciudad", filter: true },
-    { field: "pais", filter: true },
-    { field: "colegio", filter: true },
-    { field: "anioGraduacion", headerName: "Año Graduación", filter: true },
-    { field: "promedio", filter: true },
-    { field: "carreraDeseada", headerName: "Carrera", filter: true },
-    { field: "modalidad", filter: true },
-    { field: "comentarios", filter: true },
-    { field: "creadoEn", headerName: "Fecha Envío", filter: true },
-  ]);
+  const [rows, setRows] = useState([]);
 
   // Cargar datos desde Firestore
   useEffect(() => {
@@ -31,11 +17,13 @@ const TablaPreinscripciones = () => {
         const data = querySnapshot.docs.map((doc) => {
           const d = doc.data();
           return {
+            id: doc.id, // Necesario para DataGrid
             ...d,
             creadoEn: d.creadoEn?.toDate().toLocaleString() ?? "",
+            estado: d.estado ?? "Pendiente",
           };
         });
-        setRowData(data);
+        setRows(data);
       } catch (error) {
         console.error("Error obteniendo datos de Firestore:", error);
       }
@@ -44,25 +32,100 @@ const TablaPreinscripciones = () => {
     fetchData();
   }, []);
 
+  // Función para actualizar estado en Firestore
+  const handleEstado = async (id, nuevoEstado) => {
+    try {
+      const ref = doc(db, "preinscripciones", id);
+      await updateDoc(ref, { estado: nuevoEstado });
+
+      setRows((prev) =>
+        prev.map((row) =>
+          row.id === id ? { ...row, estado: nuevoEstado } : row
+        )
+      );
+    } catch (error) {
+      console.error("Error actualizando estado:", error);
+    }
+  };
+
+  // Definición de columnas para DataGrid
+  const columns = [
+    { field: "nombres", headerName: "Nombres", flex: 1 },
+    { field: "apellidos", headerName: "Apellidos", flex: 1 },
+    { field: "email", headerName: "Correo", flex: 1.5 },
+    { field: "telefono", headerName: "Teléfono", flex: 1 },
+    { field: "ciudad", headerName: "Ciudad", flex: 1 },
+    { field: "pais", headerName: "País", flex: 1 },
+    { field: "colegio", headerName: "Colegio", flex: 1 },
+    { field: "anioGraduacion", headerName: "Año Graduación", flex: 1 },
+    { field: "promedio", headerName: "Promedio", flex: 1 },
+    { field: "carreraDeseada", headerName: "Carrera", flex: 1 },
+    { field: "modalidad", headerName: "Modalidad", flex: 1 },
+    { field: "comentarios", headerName: "Comentarios", flex: 1.5 },
+    { field: "creadoEn", headerName: "Fecha Envío", flex: 1.2 },
+    {
+      field: "estado",
+      headerName: "Estado",
+      flex: 1,
+      renderCell: (params) => (
+        <Chip
+          label={params.value}
+          color={
+            params.value === "Aprobado"
+              ? "success"
+              : params.value === "Rechazado"
+              ? "error"
+              : "warning"
+          }
+        />
+      ),
+    },
+    {
+      field: "acciones",
+      headerName: "Acciones",
+      flex: 1,
+      renderCell: (params) => (
+        <Box>
+          <Tooltip title="Aprobar">
+            <IconButton
+              color="success"
+              onClick={() => handleEstado(params.row.id, "Aprobado")}
+            >
+              <CheckCircleIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Rechazar">
+            <IconButton
+              color="error"
+              onClick={() => handleEstado(params.row.id, "Rechazado")}
+            >
+              <CancelIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      ),
+    },
+  ];
+
   return (
-    <div
-      className="ag-theme-alpine table-container"
-      style={{ height: "600px", width: "100%" }}
-    >
-      <h2>Listado de Preinscripciones</h2>
-      <AgGridReact
-        rowData={rowData}
-        columnDefs={columnDefs}
-        pagination={true}
-        paginationPageSize={10}
-        animateRows={true}
-        defaultColDef={{
-          sortable: true,
-          filter: true,
-          resizable: true,
+    <Box sx={{ height: 600, width: "100%", mt: 2 }}>
+      <Typography variant="h5" gutterBottom>
+        Inscritos
+      </Typography>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={10}
+        rowsPerPageOptions={[5, 10, 20]}
+        disableSelectionOnClick
+        sx={{
+          backgroundColor: "#fff",
+          boxShadow: 3,
+          borderRadius: 2,
+          p: 2,
         }}
       />
-    </div>
+    </Box>
   );
 };
 
